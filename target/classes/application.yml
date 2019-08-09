@@ -1,0 +1,71 @@
+#服务配置
+server:
+  port: 8081
+  servlet:
+    context-path: /shujuniu
+#日志配置
+logging:
+  path: logs
+  level:
+    com:
+      ncars:
+        rescuemaster:
+          mapper: debug
+  config: classpath:logback.xml
+#mybatis配置
+mybatis:
+  mapper-locations: classpath:mapper/**/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
+    use-column-label: true
+  type-aliases-package: com.shujuniu.*.mapper
+
+#数据库配置 + 环境配置
+spring:
+  profiles:
+    active: dev
+  http:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+      tomcat:
+      uri-encoding: UTF-8
+  servlet:
+      multipart:
+      max-file-size: 5MB
+      max-request-size: 5MB
+  session:
+    redis:
+      namespace: spring:session
+      flush-mode: on_save
+    store-type: redis
+#    joda-date-time-format: yyyy-MM-dd HH:mm:ss
+debug: true
+#OSS配置
+#ali:
+#  oss:
+#    ossAddress: http://oss-cn-beijing.aliyuncs.com
+#    accessKeyId:
+#    accessKeySecret:
+#    bucketName: shujuniu
+#    filePath: images/record/
+#    storePath: images/store/
+sms:
+    template:
+    login: SMS_134210298
+    quote: SMS_159770191
+    signName: 数巨牛非常牛
+#redis微信配置
+redis:
+  cameraKey: shujuniu:camera:key:%s
+  romIdKey: shujuniu:camera:romId
+  cameraDateKey: shujuniu:camera:date:key:%s
+#联通开放平台
+chinauionopen:
+  channelId: 10655462490
+  channelSecret: D079924634B54BB4AB6B81BDEDF71F41873C5DE4132B4A89AE728E0BE01BB045
+  host: http://120.52.8.230:18080/OpenEngine
+  clientIp: 127.0.0.1,47.93.227.225,39.107.138.120,39.107.143.16,124.64.165.8,221.216.73.240,172.17.49.119
+
+

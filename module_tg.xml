@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_tg" default="compile.module.tg">
+  <dirname property="module.tg.basedir" file="${ant.file.module_tg}"/>
+  
+  <property name="module.jdk.home.tg" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.tg" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.tg" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.tg" value="-encoding UTF-8 -source 8 -target 1.8 ${compiler.args}"/>
+  
+  <property name="tg.output.dir" value="${module.tg.basedir}/target/classes"/>
+  <property name="tg.testoutput.dir" value="${module.tg.basedir}/target/test-classes"/>
+  
+  <path id="tg.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="tg.module.production.classpath">
+    <path refid="${module.jdk.classpath.tg}"/>
+  </path>
+  
+  <path id="tg.runtime.production.module.classpath">
+    <pathelement location="${tg.output.dir}"/>
+  </path>
+  
+  <path id="tg.module.classpath">
+    <path refid="${module.jdk.classpath.tg}"/>
+    <pathelement location="${tg.output.dir}"/>
+  </path>
+  
+  <path id="tg.runtime.module.classpath">
+    <pathelement location="${tg.testoutput.dir}"/>
+    <pathelement location="${tg.output.dir}"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.tg">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.tg">
+    <patternset refid="excluded.from.module.tg"/>
+  </patternset>
+  
+  <path id="tg.module.sourcepath">
+    <dirset dir="${module.tg.basedir}">
+      <include name="src/main/java"/>
+      <include name="src/main/resources"/>
+    </dirset>
+  </path>
+  
+  <path id="tg.module.test.sourcepath">
+    <dirset dir="${module.tg.basedir}">
+      <include name="src/test/java"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.tg" depends="compile.module.tg.production,compile.module.tg.tests" description="Compile module tg"/>
+  
+  <target name="compile.module.tg.production" depends="register.custom.compilers" description="Compile module tg; production classes">
+    <mkdir dir="${tg.output.dir}"/>
+    <javac2 destdir="${tg.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.tg}/javac">
+      <compilerarg line="${compiler.args.tg}"/>
+      <bootclasspath refid="tg.module.bootclasspath"/>
+      <classpath refid="tg.module.production.classpath"/>
+      <src refid="tg.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.tg"/>
+    </javac2>
+    
+    <copy todir="${tg.output.dir}">
+      <fileset dir="${module.tg.basedir}/src/main/java">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+      <fileset dir="${module.tg.basedir}/src/main/resources">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.tg.tests" depends="register.custom.compilers,compile.module.tg.production" description="compile module tg; test classes" unless="skip.tests">
+    <mkdir dir="${tg.testoutput.dir}"/>
+    <javac2 destdir="${tg.testoutput.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.tg}/javac">
+      <compilerarg line="${compiler.args.tg}"/>
+      <bootclasspath refid="tg.module.bootclasspath"/>
+      <classpath refid="tg.module.classpath"/>
+      <src refid="tg.module.test.sourcepath"/>
+      <patternset refid="excluded.from.compilation.tg"/>
+    </javac2>
+    
+    <copy todir="${tg.testoutput.dir}">
+      <fileset dir="${module.tg.basedir}/src/test/java">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="clean.module.tg" description="cleanup module">
+    <delete dir="${tg.output.dir}"/>
+    <delete dir="${tg.testoutput.dir}"/>
+  </target>
+</project>

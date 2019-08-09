@@ -1,0 +1,58 @@
+﻿#本地环境 master
+spring:
+  ###################redis配置
+  redis:
+    host: 39.107.138.120
+    port: 6379
+    maxTotal: 10
+    maxIdle: 5
+    maxWaitMills: 3000
+    testOnBorrow: 10
+    password: test2019
+
+  #  sentinel:
+  #    master: mymaster
+  #    nodes: 192.168.5.13:2222,192.168.3.12:4444
+  #   password:
+  #   123.56.22.251
+  #     username: zdtgadmin
+  #     password: Zdtg123!
+  datasource:
+#    driverClassName: com.mysql.jdbc.Driver
+    driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+
+      url: jdbc:sqlserver://39.107.138.120:2080;databasename=B
+      username: sa
+      password: Test2019
+
+      initial-size: 10
+      max-active: 100
+      min-idle: 10
+      max-wait: 60000
+      pool-prepared-statements: true
+      max-pool-prepared-statement-per-connection-size: 20
+      time-between-eviction-runs-millis: 60000
+      min-evictable-idle-time-millis: 300000
+#      validation-query: SELECT 1 FROM DUAL
+      test-while-idle: true
+      test-on-borrow: false
+      test-on-return: false
+      stat-view-servlet:
+        enabled: true
+        url-pattern: /druid/*
+        #login-username: admin
+        #login-password: admin
+      filter:
+        stat:
+          log-slow-sql: true
+          slow-sql-millis: 1000
+          merge-sql: false
+        wall:
+          config:
+            multi-statement-allow: true
+172:
+  17:
+    49:
+      119:

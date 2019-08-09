@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shujuniu.sjnsmsmt.mapper.SjnMtMapper">
+    <resultMap id="BaseResultMap" type="com.shujuniu.sjnsmsmt.po.SjnMt">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="mobile" jdbcType="VARCHAR" property="mobile"/>
+        <result column="msgid" jdbcType="VARCHAR" property="msgid"/>
+        <result column="serviceid" jdbcType="VARCHAR" property="serviceid"/>
+        <result column="srcid" jdbcType="VARCHAR" property="srcid"/>
+        <result column="msgsrc" jdbcType="VARCHAR" property="msgsrc"/>
+        <result column="destterminalid" jdbcType="VARCHAR" property="destterminalid"/>
+        <result column="msgcontent" jdbcType="VARCHAR" property="msgcontent"/>
+        <result column="sequenceid" jdbcType="VARCHAR" property="sequenceid"/>
+        <result column="status" jdbcType="VARCHAR" property="status"/>
+        <result column="Ctime" jdbcType="TIMESTAMP" property="ctime"/>
+        <result column="rptime" jdbcType="TIMESTAMP" property="rptime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, mobile, msgid, serviceid, srcid, msgsrc, destterminalid, msgcontent, sequenceid, 
+    status, Ctime, rptime
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from sjn_sms_mt
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from sjn_sms_mt
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+    <insert id="insert" parameterType="com.shujuniu.sjnsmsmt.po.SjnMt">
+
+    insert into sjn_sms_mt (mobile, msgid,
+      serviceid, srcid, msgsrc, 
+      destterminalid, msgcontent, sequenceid, 
+      status, Ctime, rptime
+      )
+    values ( #{mobile,jdbcType=VARCHAR}, #{msgid,jdbcType=VARCHAR},
+      #{serviceid,jdbcType=VARCHAR}, #{srcid,jdbcType=VARCHAR}, #{msgsrc,jdbcType=VARCHAR}, 
+      #{destterminalid,jdbcType=VARCHAR}, #{msgcontent,jdbcType=VARCHAR}, #{sequenceid,jdbcType=VARCHAR}, 
+      #{status,jdbcType=VARCHAR}, 'GETDATE()' , 'GETDATE()'      )
+  </insert>
+    <insert id="insertSelective" parameterType="com.shujuniu.sjnsmsmt.po.SjnMt">
+        insert into sjn_sms_mt
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="mobile != null">
+                mobile,
+            </if>
+            <if test="msgid != null">
+                msgid,
+            </if>
+            <if test="serviceid != null">
+                serviceid,
+            </if>
+            <if test="srcid != null">
+                srcid,
+            </if>
+            <if test="msgsrc != null">
+                msgsrc,
+            </if>
+            <if test="destterminalid != null">
+                destterminalid,
+            </if>
+            <if test="msgcontent != null">
+                msgcontent,
+            </if>
+            <if test="sequenceid != null">
+                sequenceid,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="ctime != null">
+                Ctime,
+            </if>
+            <if test="rptime != null">
+                rptime,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="mobile != null">
+                #{mobile,jdbcType=VARCHAR},
+            </if>
+            <if test="msgid != null">
+                #{msgid,jdbcType=VARCHAR},
+            </if>
+            <if test="serviceid != null">
+                #{serviceid,jdbcType=VARCHAR},
+            </if>
+            <if test="srcid != null">
+                #{srcid,jdbcType=VARCHAR},
+            </if>
+            <if test="msgsrc != null">
+                #{msgsrc,jdbcType=VARCHAR},
+            </if>
+            <if test="destterminalid != null">
+                #{destterminalid,jdbcType=VARCHAR},
+            </if>
+            <if test="msgcontent != null">
+                #{msgcontent,jdbcType=VARCHAR},
+            </if>
+            <if test="sequenceid != null">
+                #{sequenceid,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=VARCHAR},
+            </if>
+            <if test="ctime != null">
+                #{ctime,jdbcType=DATE},
+            </if>
+            <if test="rptime != null">
+                #{rptime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.shujuniu.sjnsmsmt.po.SjnMt">
+        update sjn_sms_mt
+        <set>
+            <if test="mobile != null">
+                mobile = #{mobile,jdbcType=VARCHAR},
+            </if>
+            <if test="msgid != null">
+                msgid = #{msgid,jdbcType=VARCHAR},
+            </if>
+            <if test="serviceid != null">
+                serviceid = #{serviceid,jdbcType=VARCHAR},
+            </if>
+            <if test="srcid != null">
+                srcid = #{srcid,jdbcType=VARCHAR},
+            </if>
+            <if test="msgsrc != null">
+                msgsrc = #{msgsrc,jdbcType=VARCHAR},
+            </if>
+            <if test="destterminalid != null">
+                destterminalid = #{destterminalid,jdbcType=VARCHAR},
+            </if>
+            <if test="msgcontent != null">
+                msgcontent = #{msgcontent,jdbcType=VARCHAR},
+            </if>
+            <if test="sequenceid != null">
+                sequenceid = #{sequenceid,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=VARCHAR},
+            </if>
+            <if test="ctime != null">
+                Ctime = #{ctime,jdbcType=DATE},
+            </if>
+            <if test="rptime != null">
+                rptime = #{rptime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where msgid = #{msgid,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.shujuniu.sjnsmsmt.po.SjnMt">
+    update sjn_sms_mt
+    set mobile = #{mobile,jdbcType=VARCHAR},
+      msgid = #{msgid,jdbcType=VARCHAR},
+      serviceid = #{serviceid,jdbcType=VARCHAR},
+      srcid = #{srcid,jdbcType=VARCHAR},
+      msgsrc = #{msgsrc,jdbcType=VARCHAR},
+      destterminalid = #{destterminalid,jdbcType=VARCHAR},
+      msgcontent = #{msgcontent,jdbcType=VARCHAR},
+      sequenceid = #{sequenceid,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      Ctime = #{ctime,jdbcType=DATE},
+      rptime = #{rptime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+
+</mapper>

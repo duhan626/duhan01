@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shujuniu.gwbmid.mapper.GwBMIDMapper">
+  <resultMap id="BaseResultMap" type="com.shujuniu.gwbmid.po.GwBMIDDao">
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <result column="MID" jdbcType="VARCHAR" property="mid" />
+    <result column="MS" jdbcType="NVARCHAR" property="ms" />
+    <result column="GWID" jdbcType="INTEGER" property="gwid" />
+    <result column="cretime" jdbcType="TIMESTAMP" property="cretime" />
+    <result column="lasttime" jdbcType="TIMESTAMP" property="lasttime" />
+    <result column="operator" jdbcType="VARCHAR" property="operator" />
+    <result column="newms" jdbcType="NVARCHAR" property="newms" />
+    <result column="flag" jdbcType="TINYINT" property="flag" />
+    <result column="qm" jdbcType="NVARCHAR" property="qm" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, MID, MS, GWID, cretime, lasttime, operator, newms, flag, qm
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from [A].[dbo].T_GwBMID
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectByMS" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from [A].[dbo].T_GwBMID with(nolock)
+    where  gwid='267' and ms like   CONCAT('',#{ms}, '%')
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from T_GwBMID
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.shujuniu.gwbmid.po.GwBMIDDao">
+    insert into [A].[dbo].T_GwBMID (MID, MS,
+      GWID, cretime, lasttime, 
+      operator, newms, flag, 
+      qm)
+    values ( #{mid,jdbcType=VARCHAR}, #{ms,jdbcType=NVARCHAR},
+      #{gwid,jdbcType=INTEGER}, #{cretime,jdbcType=TIMESTAMP}, #{lasttime,jdbcType=TIMESTAMP}, 
+      #{operator,jdbcType=VARCHAR}, #{newms,jdbcType=NVARCHAR}, #{flag,jdbcType=TINYINT}, 
+      #{qm,jdbcType=NVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.shujuniu.gwbmid.po.GwBMIDDao">
+    insert into T_GwBMID
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="mid != null">
+        MID,
+      </if>
+      <if test="ms != null">
+        MS,
+      </if>
+      <if test="gwid != null">
+        GWID,
+      </if>
+      <if test="cretime != null">
+        cretime,
+      </if>
+      <if test="lasttime != null">
+        lasttime,
+      </if>
+      <if test="operator != null">
+        operator,
+      </if>
+      <if test="newms != null">
+        newms,
+      </if>
+      <if test="flag != null">
+        flag,
+      </if>
+      <if test="qm != null">
+        qm,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="mid != null">
+        #{mid,jdbcType=VARCHAR},
+      </if>
+      <if test="ms != null">
+        #{ms,jdbcType=NVARCHAR},
+      </if>
+      <if test="gwid != null">
+        #{gwid,jdbcType=INTEGER},
+      </if>
+      <if test="cretime != null">
+        #{cretime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lasttime != null">
+        #{lasttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="operator != null">
+        #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="newms != null">
+        #{newms,jdbcType=NVARCHAR},
+      </if>
+      <if test="flag != null">
+        #{flag,jdbcType=TINYINT},
+      </if>
+      <if test="qm != null">
+        #{qm,jdbcType=NVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.shujuniu.gwbmid.po.GwBMIDDao">
+    update T_GwBMID
+    <set>
+      <if test="mid != null">
+        MID = #{mid,jdbcType=VARCHAR},
+      </if>
+      <if test="ms != null">
+        MS = #{ms,jdbcType=NVARCHAR},
+      </if>
+      <if test="gwid != null">
+        GWID = #{gwid,jdbcType=INTEGER},
+      </if>
+      <if test="cretime != null">
+        cretime = #{cretime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lasttime != null">
+        lasttime = #{lasttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="operator != null">
+        operator = #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="newms != null">
+        newms = #{newms,jdbcType=NVARCHAR},
+      </if>
+      <if test="flag != null">
+        flag = #{flag,jdbcType=TINYINT},
+      </if>
+      <if test="qm != null">
+        qm = #{qm,jdbcType=NVARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.shujuniu.gwbmid.po.GwBMIDDao">
+    update T_GwBMID
+    set MID = #{mid,jdbcType=VARCHAR},
+      MS = #{ms,jdbcType=NVARCHAR},
+      GWID = #{gwid,jdbcType=INTEGER},
+      cretime = #{cretime,jdbcType=TIMESTAMP},
+      lasttime = #{lasttime,jdbcType=TIMESTAMP},
+      operator = #{operator,jdbcType=VARCHAR},
+      newms = #{newms,jdbcType=NVARCHAR},
+      flag = #{flag,jdbcType=TINYINT},
+      qm = #{qm,jdbcType=NVARCHAR}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
